@@ -2,24 +2,46 @@ package backend;
 
 import java.util.ArrayList;
 
+/**
+ * Backend Field class. Engine of game.
+ */
 public class Field {
     private int size;
     private Figure[][] field;
 
+    /**
+     * Constructor that sets size, field variables.
+     * @param size
+     */
     public Field(int size) {
         this.size = size;
         field = new Figure[size][size];
         this.clear();
     }
 
+    /**
+     * Getter that return size.
+     * @return size
+     */
     public Integer getSize() {
         return size;
     }
 
+    /**
+     * Getter that return field.
+     * @return field
+     */
     public Figure[][] getField() {
         return field.clone();
     }
 
+    /**
+     * Function sets figure in cell and return true else false.
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @param figure
+     * @return True or False
+     */
     public boolean setCell(int x, int y, Figure figure) {
         checkCoordinates(x, y);
         if (field[x][y].equals(Figure.EMPTY)) {
@@ -29,19 +51,29 @@ public class Field {
         return false;
     }
 
+    /**
+     * Function get figure in field[x][y].
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @return Figure
+     */
     public Figure getCell(int x, int y) {
         checkCoordinates(x, y);
         return field[x][y];
     }
 
+    /**
+     * Return Winner class with information who won and coordinates.
+     * @return Winner or null
+     */
     public Winner getWinner() {
-        ArrayList<Winner> answers = new ArrayList<>() {{
-           add(checkRows());
-           add(checkColumns());
-           add(checkLeftDiagonal());
-           add(checkRightDiagonal());
-           add(checkDraw());
-        }};
+        Winner[] answers = new Winner[] {
+           checkRows(),
+           checkColumns(),
+           checkLeftDiagonal(),
+           checkRightDiagonal(),
+           checkDraw()
+        };
 
         for (Winner answer : answers) {
             if (answer != null) {
@@ -51,6 +83,9 @@ public class Field {
         return null;
     }
 
+    /**
+     *  Clear all figure in field.
+     */
     public void clear() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -59,6 +94,10 @@ public class Field {
         }
     }
 
+    /**
+     * Function checks that some row has only crosses or zeros.
+     * @return Winner or null
+     */
     private Winner checkRows() {
         for (int i = 0; i < size; i++) {
             ArrayList<Figure> sequence = new ArrayList<>();
@@ -74,6 +113,10 @@ public class Field {
         return null;
     }
 
+    /**
+     * Function checks that some column has only crosses or zeros.
+     * @return Winner or null
+     */
     private Winner checkColumns() {
         for (int j = 0; j < size; j++) {
             ArrayList<Figure> sequence = new ArrayList<>();
@@ -89,6 +132,10 @@ public class Field {
         return null;
     }
 
+    /**
+     * Function checks that main diagonal has only crosses or zeros.
+     * @return Winner or null
+     */
     private Winner checkLeftDiagonal() {
         ArrayList<Figure> sequence = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -98,6 +145,10 @@ public class Field {
         return (figure == null ? null : new Winner(0, 0, size - 1, size - 1, figure));
     }
 
+    /**
+     * Function checks that second diagonal has only crosses or zeros.
+     * @return Winner or null
+     */
     private Winner checkRightDiagonal() {
         ArrayList<Figure> sequence = new ArrayList<>();
         for (int i = 0; i < size; i++) {
@@ -107,6 +158,10 @@ public class Field {
         return (figure == null ? null : new Winner(0, size - 1, size - 1, 0, figure));
     }
 
+    /**
+     * Function checks that all cells are not empty.
+     * @return Winner or null
+     */
     private Winner checkDraw() {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -118,6 +173,11 @@ public class Field {
         return new Winner(-1, -1, -1, -1, Figure.EMPTY);
     }
 
+    /**
+     * Function checks that all sequence has only crosses or zeros.
+     * @param sequence sequence of figures
+     * @return Figure or null
+     */
     private Figure getWinnerFromSequence(ArrayList<Figure> sequence) {
         Figure curFigure = (!sequence.isEmpty() ? sequence.get(0) : Figure.EMPTY);
         for (Figure figure : sequence) {
@@ -128,6 +188,11 @@ public class Field {
         return curFigure;
     }
 
+    /**
+     * Validate function check that x, y coordinates are normal and exist in field.
+     * @param x x-coordinate
+     * @param y y-coordinate
+     */
     private void checkCoordinates(int x, int y) {
         if (-1 >= x || x >= field.length || -1 >= y || y >= field[x].length) {
             throw new IllegalArgumentException("Wrong coordinates for fields");

@@ -7,11 +7,24 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Main class, that starts game.
+ */
 public class Main extends Application {
+    /**
+     * Main function
+     * @param args
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * It is override function from Application class.
+     * Function loads game.fxml and shows window.
+     * @param stage
+     * @throws IOException
+     */
     @Override
     public void start(Stage stage) throws IOException {
         // Load fxml file

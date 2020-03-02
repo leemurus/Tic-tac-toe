@@ -8,10 +8,18 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.stage.Modality;
 
+
+/**
+ * Frontend field class. That synchronize backend field with window.
+ */
 public class Field {
     private int size;
     private Tile [][]field;
 
+    /**
+     * Constructor that create field and sets Tile object in cells.
+     * @param size
+     */
     public Field(int size) {
         this.size = size;
         field = new Tile[size][size];
@@ -22,10 +30,20 @@ public class Field {
         }
     }
 
+    /**
+     * Function sets figure in cell.
+     * @param x x-coordinate
+     * @param y y-coordinate
+     * @param figure
+     */
     public void setCell(int x, int y, Figure figure) {
         field[x][y].draw(figure);
     }
 
+    /**
+     * Draw frontend field on window.
+     * @param pane
+     */
     public void addToPane(Pane pane) {
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
@@ -36,6 +54,11 @@ public class Field {
         }
     }
 
+    /**
+     * Draw line or show exception about draw.
+     * @param winner
+     * @param pane
+     */
     public void drawWinner(Winner winner, Pane pane) {
         if (winner == null) {
             return;

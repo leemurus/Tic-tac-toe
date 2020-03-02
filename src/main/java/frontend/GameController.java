@@ -7,7 +7,9 @@ import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
-
+/**
+ * Controller of game.fxml file.
+ */
 public class GameController {
     private Figure turn;
     private boolean isFinishedGame;
@@ -17,6 +19,9 @@ public class GameController {
     @FXML private AnchorPane anchorPane;
     @FXML private Pane pane;
 
+    /**
+     * FXML function that sets fields and actions.
+     */
     @FXML
     public void initialize() {
         isFinishedGame = false;
@@ -25,6 +30,10 @@ public class GameController {
         setActionsOnField();
     }
 
+    /**
+     * Function creates backend and frontend fields and sets size for window.
+     * @param size
+     */
     private void initializeField(int size) {
         backendField = new backend.Field(size);
         frontendField = new frontend.Field(size);
@@ -33,11 +42,18 @@ public class GameController {
         frontendField.addToPane(pane);
     }
 
+    /**
+     * Clear pane and restart initialize.
+     */
     private void restartGame() {
         pane.getChildren().clear();
         initialize();
     }
 
+    /**
+     * Function sets actions that should happen.
+     * (More exact it sets mouse clicks on pane)
+     */
     private void setActionsOnField() {
         pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
