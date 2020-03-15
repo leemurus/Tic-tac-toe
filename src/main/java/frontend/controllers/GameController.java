@@ -1,16 +1,16 @@
-package frontend;
+package frontend.controllers;
 
 import backend.Figure;
 import backend.Winner;
-import javafx.event.EventHandler;
+import frontend.Tile;
 import javafx.fxml.FXML;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 /**
  * Controller of game.fxml file.
  */
-public class GameController {
+class GameController {
+    private int size;
     private Figure turn;
     private boolean isFinishedGame;
     private backend.Field backendField;
@@ -19,20 +19,24 @@ public class GameController {
     @FXML private AnchorPane anchorPane;
     @FXML private Pane pane;
 
+    GameController(int size) {
+        this.size = size;
+    }
+
     /**
      * FXML function that sets fields and actions.
      */
     @FXML
-    public void initialize() {
+    private void initialize() {
         isFinishedGame = false;
         turn = Figure.CROSS;
-        initializeField(3);
+        initializeField(size);
         setActionsOnField();
     }
 
     /**
      * Function creates backend and frontend fields and sets size for window.
-     * @param size
+     * @param size;
      */
     private void initializeField(int size) {
         backendField = new backend.Field(size);
@@ -55,25 +59,22 @@ public class GameController {
      * (More exact it sets mouse clicks on pane)
      */
     private void setActionsOnField() {
-        pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent mouseEvent) {
-                if (isFinishedGame) {
-                    restartGame();
-                    return;
-                }
+        pane.setOnMouseClicked(mouseEvent -> {
+            if (isFinishedGame) {
+                restartGame();
+                return;
+            }
 
-                int x = (int) mouseEvent.getSceneY() / Tile.TILE_SIZE;
-                int y = (int) mouseEvent.getSceneX() / Tile.TILE_SIZE;
-                if (backendField.setCell(x, y, turn)) {
-                    frontendField.setCell(x, y, turn);
-                    turn = (turn.equals(Figure.CROSS) ? Figure.ZERO : Figure.CROSS);
+            int x = (int) mouseEvent.getSceneY() / Tile.TILE_SIZE;
+            int y = (int) mouseEvent.getSceneX() / Tile.TILE_SIZE;
+            if (backendField.setCell(x, y, turn)) {
+                frontendField.setCell(x, y, turn);
+                turn = (turn.equals(Figure.CROSS) ? Figure.ZERO : Figure.CROSS);
 
-                    Winner winner = backendField.getWinner();
-                    if (winner != null) {
-                        isFinishedGame = true;
-                        frontendField.drawWinner(winner, pane);
-                    }
+                Winner winner = backendField.getWinner();
+                if (winner != null) {
+                    isFinishedGame = true;
+                    frontendField.drawWinner(winner, pane);
                 }
             }
         });

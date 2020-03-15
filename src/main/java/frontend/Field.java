@@ -13,12 +13,14 @@ import javafx.stage.Modality;
  * Frontend field class. That synchronize backend field with window.
  */
 public class Field {
-    private int size;
+    public static final Integer MIN_FIELD_SIZE = 3;
+    public static final Integer MAX_FIELD_SIZE = 20;
+    private Integer size;
     private Tile [][]field;
 
     /**
      * Constructor that create field and sets Tile object in cells.
-     * @param size
+     * @param size;
      */
     public Field(int size) {
         this.size = size;
@@ -34,7 +36,7 @@ public class Field {
      * Function sets figure in cell.
      * @param x x-coordinate
      * @param y y-coordinate
-     * @param figure
+     * @param figure;
      */
     public void setCell(int x, int y, Figure figure) {
         field[x][y].draw(figure);
@@ -42,7 +44,7 @@ public class Field {
 
     /**
      * Draw frontend field on window.
-     * @param pane
+     * @param pane;
      */
     public void addToPane(Pane pane) {
         for (int i = 0; i < size; i++) {
@@ -56,8 +58,8 @@ public class Field {
 
     /**
      * Draw line or show exception about draw.
-     * @param winner
-     * @param pane
+     * @param winner;
+     * @param pane;
      */
     public void drawWinner(Winner winner, Pane pane) {
         if (winner == null) {
@@ -75,10 +77,10 @@ public class Field {
             Line line = new Line();
             line.setStroke(Color.RED);
             line.setStrokeWidth(5);
-            line.setStartX(winner.getLeftY() * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
-            line.setStartY(winner.getLeftX() * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
-            line.setEndX(winner.getRightY() * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
-            line.setEndY(winner.getRightX() * Tile.TILE_SIZE + Tile.TILE_SIZE / 2);
+            line.setStartX(winner.getLeftY() * Tile.TILE_SIZE + (double)Tile.TILE_SIZE / 2);
+            line.setStartY(winner.getLeftX() * Tile.TILE_SIZE + (double)Tile.TILE_SIZE / 2);
+            line.setEndX(winner.getRightY() * Tile.TILE_SIZE + (double)Tile.TILE_SIZE / 2);
+            line.setEndY(winner.getRightX() * Tile.TILE_SIZE + (double)Tile.TILE_SIZE / 2);
             pane.getChildren().add(line);
         }
     }

@@ -10,15 +10,15 @@ import javafx.scene.text.Text;
 /**
  * Frontend class for draw and save information.
  */
-class Tile extends StackPane {
+public class Tile extends StackPane {
     private static final int FONT_SIZE = 50;
-    static final int TILE_SIZE = 150;
+    public static final int TILE_SIZE = 150;
     private Text text = new Text();
 
     /**
      * Constructor that create frontend tile and draw on window.
      */
-    public Tile() {
+    Tile() {
         Rectangle border = new Rectangle(TILE_SIZE, TILE_SIZE);
         text.setFont(Font.font(FONT_SIZE));
         border.setFill(null);                   // Fill null color inside
@@ -28,9 +28,9 @@ class Tile extends StackPane {
 
     /**
      * Function draw figure inside the tile.
-     * @param figure
+     * @param figure;
      */
-    public void draw(Figure figure) {
+    void draw(Figure figure) {
         if (figure.equals(Figure.ZERO)) {
             text.setText("O");
         } else {
