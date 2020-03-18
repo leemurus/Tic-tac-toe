@@ -13,9 +13,12 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class StartController {
-    @FXML private Button startButton;
-    @FXML private Button exitButton;
-    @FXML private TextField input;
+    @FXML
+    private Button startButton;
+    @FXML
+    private Button exitButton;
+    @FXML
+    private TextField input;
 
     private boolean validateNumberFromInput() {
         String stringNumber = input.getText();
@@ -24,7 +27,7 @@ public class StartController {
                 Integer.parseInt(stringNumber) <= Field.MAX_FIELD_SIZE;
     }
 
-    private int getNumberFromInput() {
+    private Integer getNumberFromInput() {
         return Integer.parseInt(input.getText());
     }
 
@@ -74,7 +77,7 @@ public class StartController {
 
     @FXML
     public void clickedOnExitButton() {
-        ((Stage)exitButton.getScene().getWindow()).close();
+        ((Stage) exitButton.getScene().getWindow()).close();
     }
 
 }

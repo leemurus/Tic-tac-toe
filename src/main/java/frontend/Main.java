@@ -13,6 +13,7 @@ import java.io.IOException;
 public class Main extends Application {
     /**
      * Main function
+     *
      * @param args;
      */
     public static void main(String[] args) {
@@ -22,6 +23,7 @@ public class Main extends Application {
     /**
      * It is override function from Application class.
      * Function loads start.fxml and shows window.
+     *
      * @param stage;
      * @throws IOException;
      */

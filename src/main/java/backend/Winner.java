@@ -4,19 +4,20 @@ package backend;
  * Class for information about winner.
  */
 public class Winner {
-    Figure figure;
-    int leftX, leftY;    // left top point
-    int rightX, rightY;  // right bottom point
+    private Figure figure;
+    private Integer leftX, leftY;    // left top point
+    private Integer rightX, rightY;  // right bottom point
 
     /**
      * Constructor that take coordinates of left top point and right bottom point of line.
-     * @param leftX
-     * @param leftY
-     * @param rightX
-     * @param rightY
-     * @param figure
+     *
+     * @param leftX;
+     * @param leftY;
+     * @param rightX;
+     * @param rightY;
+     * @param figure;
      */
-    public Winner(int leftX, int leftY, int rightX, int rightY, Figure figure) {
+    Winner(Integer leftX, Integer leftY, Integer rightX, Integer rightY, Figure figure) {
         this.leftX = leftX;
         this.leftY = leftY;
         this.rightX = rightX;
@@ -26,6 +27,7 @@ public class Winner {
 
     /**
      * Get figure of winner.
+     *
      * @return Figure
      */
     public Figure getFigure() {
@@ -34,33 +36,37 @@ public class Winner {
 
     /**
      * Get left top x coordinate.
+     *
      * @return x-coordinate
      */
-    public int getLeftX() {
+    public Integer getLeftX() {
         return leftX;
     }
 
     /**
      * Get left top y coordinate.
+     *
      * @return y-coordinate
      */
-    public int getLeftY() {
+    public Integer getLeftY() {
         return leftY;
     }
 
     /**
      * Get right bottom x coordinate.
+     *
      * @return x-coordinate
      */
-    public int getRightX() {
+    public Integer getRightX() {
         return rightX;
     }
 
     /**
      * Get right bottom y coordinate.
+     *
      * @return y-coordinate
      */
-    public int getRightY() {
+    public Integer getRightY() {
         return rightY;
     }
 }

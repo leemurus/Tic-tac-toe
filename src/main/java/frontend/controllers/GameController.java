@@ -2,7 +2,6 @@ package frontend.controllers;
 
 import backend.Figure;
 import backend.Winner;
-import frontend.Tile;
 import javafx.fxml.FXML;
 import javafx.scene.layout.*;
 
@@ -10,17 +9,26 @@ import javafx.scene.layout.*;
  * Controller of game.fxml file.
  */
 class GameController {
-    private int size;
     private Figure turn;
+    private Integer sizeOfTile;
+    private Integer sizeOfField;
     private boolean isFinishedGame;
     private backend.Field backendField;
     private frontend.Field frontendField;
 
-    @FXML private AnchorPane anchorPane;
-    @FXML private Pane pane;
+    @FXML
+    private AnchorPane anchorPane;
+    @FXML
+    private Pane pane;
 
-    GameController(int size) {
-        this.size = size;
+
+    private static Integer getSizeOfTile(Integer sizeOfField) {
+        return 700 / sizeOfField;
+    }
+
+    GameController(Integer sizeOfField) {
+        this.sizeOfField = sizeOfField;
+        this.sizeOfTile = getSizeOfTile(sizeOfField);
     }
 
     /**
@@ -30,20 +38,26 @@ class GameController {
     private void initialize() {
         isFinishedGame = false;
         turn = Figure.CROSS;
-        initializeField(size);
+        initializePane();
+        initializeField();
         setActionsOnField();
     }
 
     /**
-     * Function creates backend and frontend fields and sets size for window.
-     * @param size;
+     * Function sets size for window
      */
-    private void initializeField(int size) {
-        backendField = new backend.Field(size);
-        frontendField = new frontend.Field(size);
-        anchorPane.setPrefSize(size * Tile.TILE_SIZE, size * Tile.TILE_SIZE);
-        pane.setPrefSize(size * Tile.TILE_SIZE, size * Tile.TILE_SIZE);
-        frontendField.addToPane(pane);
+    private void initializePane() {
+        pane.setPrefSize(sizeOfField * sizeOfTile, sizeOfField * sizeOfTile);
+        anchorPane.setPrefSize(sizeOfField * sizeOfTile, sizeOfField * sizeOfTile);
+    }
+
+    /**
+     * Function creates backend and frontend fields.
+     */
+    private void initializeField() {
+        backendField = new backend.Field(sizeOfField);
+        frontendField = new frontend.Field(sizeOfField, sizeOfTile);
+        frontendField.drawOn(pane);
     }
 
     /**
@@ -65,8 +79,8 @@ class GameController {
                 return;
             }
 
-            int x = (int) mouseEvent.getSceneY() / Tile.TILE_SIZE;
-            int y = (int) mouseEvent.getSceneX() / Tile.TILE_SIZE;
+            Integer x = (int) mouseEvent.getSceneY() / sizeOfTile;
+            Integer y = (int) mouseEvent.getSceneX() / sizeOfTile;
             if (backendField.setCell(x, y, turn)) {
                 frontendField.setCell(x, y, turn);
                 turn = (turn.equals(Figure.CROSS) ? Figure.ZERO : Figure.CROSS);

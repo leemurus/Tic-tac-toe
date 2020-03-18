@@ -4,7 +4,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class BaseTest {
@@ -61,6 +61,6 @@ public class BaseTest {
     @Test
     public void testGetSetMethods() {
         field.setCell(0, 0, Figure.ZERO);
-        assertTrue(field.getCell(0,0).equals(Figure.ZERO));
+        assertEquals(field.getCell(0, 0), Figure.ZERO);
     }
 }

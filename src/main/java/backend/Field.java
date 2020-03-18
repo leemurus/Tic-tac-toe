@@ -1,19 +1,21 @@
 package backend;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Backend Field class. Engine of game.
  */
 public class Field {
-    private int size;
+    private Integer size;
     private Figure[][] field;
 
     /**
      * Constructor that sets size, field variables.
-     * @param size
+     *
+     * @param size;
      */
-    public Field(int size) {
+    public Field(Integer size) {
         this.size = size;
         field = new Figure[size][size];
         this.clear();
@@ -21,6 +23,7 @@ public class Field {
 
     /**
      * Getter that return size.
+     *
      * @return size
      */
     public Integer getSize() {
@@ -29,6 +32,7 @@ public class Field {
 
     /**
      * Getter that return field.
+     *
      * @return field
      */
     public Figure[][] getField() {
@@ -37,12 +41,13 @@ public class Field {
 
     /**
      * Function sets figure in cell and return true else false.
-     * @param x x-coordinate
-     * @param y y-coordinate
-     * @param figure
+     *
+     * @param x      x-coordinate
+     * @param y      y-coordinate
+     * @param figure;
      * @return True or False
      */
-    public boolean setCell(int x, int y, Figure figure) {
+    public boolean setCell(Integer x, Integer y, Figure figure) {
         checkCoordinates(x, y);
         if (field[x][y].equals(Figure.EMPTY)) {
             field[x][y] = figure;
@@ -53,26 +58,28 @@ public class Field {
 
     /**
      * Function get figure in field[x][y].
+     *
      * @param x x-coordinate
      * @param y y-coordinate
      * @return Figure
      */
-    public Figure getCell(int x, int y) {
+    Figure getCell(Integer x, Integer y) {
         checkCoordinates(x, y);
         return field[x][y];
     }
 
     /**
      * Return Winner class with information who won and coordinates.
+     *
      * @return Winner or null
      */
     public Winner getWinner() {
-        Winner[] answers = new Winner[] {
-           checkRows(),
-           checkColumns(),
-           checkLeftDiagonal(),
-           checkRightDiagonal(),
-           checkDraw()
+        Winner[] answers = new Winner[]{
+                checkRows(),
+                checkColumns(),
+                checkLeftDiagonal(),
+                checkRightDiagonal(),
+                checkDraw()
         };
 
         for (Winner answer : answers) {
@@ -84,11 +91,11 @@ public class Field {
     }
 
     /**
-     *  Clear all figure in field.
+     * Clear all figure in field.
      */
-    public void clear() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+    private void clear() {
+        for (Integer i = 0; i < size; i++) {
+            for (Integer j = 0; j < size; j++) {
                 field[i][j] = Figure.EMPTY;
             }
         }
@@ -96,14 +103,12 @@ public class Field {
 
     /**
      * Function checks that some row has only crosses or zeros.
+     *
      * @return Winner or null
      */
     private Winner checkRows() {
-        for (int i = 0; i < size; i++) {
-            ArrayList<Figure> sequence = new ArrayList<>();
-            for (int j = 0; j < size; j++) {
-                sequence.add(field[i][j]);
-            }
+        for (Integer i = 0; i < size; i++) {
+            ArrayList<Figure> sequence = new ArrayList<>(Arrays.asList(field[i]).subList(0, size));
 
             Figure figure = getWinnerFromSequence(sequence);
             if (figure != null) {
@@ -115,12 +120,13 @@ public class Field {
 
     /**
      * Function checks that some column has only crosses or zeros.
+     *
      * @return Winner or null
      */
     private Winner checkColumns() {
-        for (int j = 0; j < size; j++) {
+        for (Integer j = 0; j < size; j++) {
             ArrayList<Figure> sequence = new ArrayList<>();
-            for (int i = 0; i < size; i++) {
+            for (Integer i = 0; i < size; i++) {
                 sequence.add(field[i][j]);
             }
 
@@ -134,11 +140,12 @@ public class Field {
 
     /**
      * Function checks that main diagonal has only crosses or zeros.
+     *
      * @return Winner or null
      */
     private Winner checkLeftDiagonal() {
         ArrayList<Figure> sequence = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
+        for (Integer i = 0; i < size; i++) {
             sequence.add(field[i][i]);
         }
         Figure figure = getWinnerFromSequence(sequence);
@@ -147,11 +154,12 @@ public class Field {
 
     /**
      * Function checks that second diagonal has only crosses or zeros.
+     *
      * @return Winner or null
      */
     private Winner checkRightDiagonal() {
         ArrayList<Figure> sequence = new ArrayList<>();
-        for (int i = 0; i < size; i++) {
+        for (Integer i = 0; i < size; i++) {
             sequence.add(field[i][size - i - 1]);
         }
         Figure figure = getWinnerFromSequence(sequence);
@@ -160,11 +168,12 @@ public class Field {
 
     /**
      * Function checks that all cells are not empty.
+     *
      * @return Winner or null
      */
     private Winner checkDraw() {
-        for (int i = 0; i < size; i++) {
-            for (int j = 0; j < size; j++) {
+        for (Integer i = 0; i < size; i++) {
+            for (Integer j = 0; j < size; j++) {
                 if (field[i][j].equals(Figure.EMPTY)) {
                     return null;
                 }
@@ -175,6 +184,7 @@ public class Field {
 
     /**
      * Function checks that all sequence has only crosses or zeros.
+     *
      * @param sequence sequence of figures
      * @return Figure or null
      */
@@ -190,10 +200,11 @@ public class Field {
 
     /**
      * Validate function check that x, y coordinates are normal and exist in field.
+     *
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    private void checkCoordinates(int x, int y) {
+    private void checkCoordinates(Integer x, Integer y) {
         if (-1 >= x || x >= field.length || -1 >= y || y >= field[x].length) {
             throw new IllegalArgumentException("Wrong coordinates for fields");
         }
