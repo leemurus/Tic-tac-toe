@@ -3,6 +3,7 @@ package backend;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class Test1x1 {
@@ -20,18 +21,18 @@ public class Test1x1 {
 
     @Test
     public void testEmpty() {
-        assertTrue(field.getWinner() == null);
+        assertNull(field.getWinner());
     }
 
     @Test
     public void testWinCross() {
         field.setCell(0, 0, Figure.CROSS);
-        assertTrue(field.getWinner().getFigure().equals(Figure.CROSS));
+        assertEquals(field.getWinner().getFigure(), Figure.CROSS);
     }
 
     @Test
     public void testWinZero() {
         field.setCell(0, 0, Figure.ZERO);
-        assertTrue(field.getWinner().getFigure().equals(Figure.ZERO));
+        assertEquals(field.getWinner().getFigure(), Figure.ZERO);
     }
 }
